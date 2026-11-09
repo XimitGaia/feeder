@@ -1,0 +1,38 @@
+[project]
+name = "feeder"
+version = "0.1.0"
+description = "Agregador de eventos e notícias (agro / plantas / jardinagem) para alimentar o WordPress e outros consumidores."
+authors = [{ name = "Marco Sievers de Almeida", email = "im.ximit@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "feedparser>=6.0.11",
+    "httpx>=0.27.0",
+    "beautifulsoup4>=4.12.2",
+    "pydantic>=2.7.0",
+    "python-decouple>=3.8",
+    "pyyaml>=6.0.1",
+    "witch-doctor>=1.0.0",
+    "python-ulid>=2.2.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.7.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.21.1",
+    "pylint>=3.0.1",
+    "pre-commit>=3.5.0",
+    "respx>=0.21.1",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "UP", "I", "ASYNC", "BLE", "A", "C4", "INP", "PIE", "Q", "RSE", "ARG", "TD", "FIX", "PL"]
+ignore = ["F401", "F403", "E501", "PLR0913"]
+exclude = ["tests/*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

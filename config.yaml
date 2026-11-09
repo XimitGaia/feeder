@@ -1,0 +1,108 @@
+# ============================================================================
+# Feeder — configuração declarativa (o QUE buscar, classificar e para onde vai)
+# Segredos NÃO entram aqui (ver .env). Este arquivo é versionável.
+# ============================================================================
+
+# ---------------------------------------------------------------------------
+# GRUPOS DE INTERESSE
+# Cada grupo é um tema. Keywords fazem a peneira grossa (barata); o LLM
+# (Haiku) refina e desambigua depois. Cadastre um grupo novo e o feeder já
+# passa a classificar os itens nele — sem mexer em código. Ver docs/adr/0002.
+# ---------------------------------------------------------------------------
+grupos:
+  - nome: agronomia
+    descricao: "Agronegócio, produção agrícola, agronomia, agro em geral."
+    keywords:
+      - agronomia
+      - agronegócio
+      - agro
+      - plantio
+      - safra
+      - colheita
+      - irrigação
+      - fazenda
+      - cultivar
+      - defensivo
+      - fertilizante
+
+  - nome: jardinagem
+    descricao: "Jardinagem, paisagismo, plantas ornamentais, hortas."
+    keywords:
+      - jardim
+      - jardinagem
+      - paisagismo
+      - muda
+      - horta
+      - planta ornamental
+      - suculenta
+      - bonsai
+      - flores
+
+# ---------------------------------------------------------------------------
+# REGIÃO
+# v1 começa em São Paulo, mas o filtro é um parâmetro — expandir por região
+# é trocar esta lista, não reescrever código. Ver docs/adr/0001.
+# ---------------------------------------------------------------------------
+regiao:
+  padrao_uf: SP
+  ufs_aceitas: [SP]        # vazio = aceita qualquer UF
+
+# ---------------------------------------------------------------------------
+# FONTES
+# Cada fonte declara seu método de coleta e a quais grupos ela alimenta.
+#   tipo: rss | scraper
+#   metodo (só p/ scraper): http (leve, padrão) | playwright (só se precisar JS)
+# Ver docs/adr/0001 (trilhas) e 0005 (escalonamento http -> playwright).
+# ---------------------------------------------------------------------------
+fontes:
+  # ---- Trilha A: notícias via RSS (limpo, legal, já funcional no v1) ----
+  noticias:
+    - id: globo_rural
+      tipo: rss
+      url: "https://g1.globo.com/rss/g1/economia/agronegocios/"
+      grupos: [agronomia]
+    - id: canal_rural
+      tipo: rss
+      url: "https://www.canalrural.com.br/feed/"
+      grupos: [agronomia]
+    - id: google_news_jardinagem
+      tipo: rss
+      # Google News RSS por query — pesca o que os portais não cobrem.
+      url: "https://news.google.com/rss/search?q=jardinagem+OR+paisagismo+when:7d&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+      grupos: [jardinagem]
+
+  # ---- Trilha B: grandes feiras (seed + refresh de data). Ver docs/adr/0004 ----
+  feiras_recorrentes:
+    - id: agrishow
+      nome: "Agrishow"
+      site_oficial: "https://www.agrishow.com.br/"
+      local: "Ribeirão Preto"
+      uf: SP
+      grupos: [agronomia]
+    - id: hortitec
+      nome: "Hortitec"
+      site_oficial: "https://www.hortitec.com.br/"
+      local: "Holambra"
+      uf: SP
+      grupos: [jardinagem, agronomia]
+
+  # ---- Trilha C: eventos diversos via scraping de listagem (stub no v1) ----
+  eventos:
+    - id: even3_agronomia
+      tipo: scraper
+      metodo: http
+      url: "https://www.even3.com.br/eventos/?busca=agronomia"
+      grupos: [agronomia]
+
+# ---------------------------------------------------------------------------
+# SINKS (destinos) POR TIPO DE CONTEÚDO
+# AQUI mora a sua regra: evento vai pra rascunho no WordPress; notícia NÃO é
+# publicada (só armazenada), porque será consumida de outra forma.
+# Pode sobrescrever por fonte com a chave `sinks:` dentro da fonte.
+#   wordpress_draft -> cria post rascunho via REST API do WP
+#   store_only      -> apenas persiste no banco; nada é publicado
+# Ver docs/adr/0006.
+# ---------------------------------------------------------------------------
+sinks:
+  evento: [wordpress_draft]
+  noticia: [store_only]
