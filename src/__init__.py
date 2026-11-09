@@ -16,6 +16,7 @@ from decouple import config as env
 from src.core.config import Config, load_config
 from src.core.interfaces import IClassifier, ICollector, IDedup, ISink, IStorage
 from src.services.classifier.classifier import FunnelClassifier
+from src.services.collectors.even3 import Even3Collector
 from src.services.collectors.rss import RSSCollector
 from src.services.collectors.scraper import ScraperCollector
 from src.services.dedup.dedup import MergeDedup
@@ -50,7 +51,8 @@ def initializer() -> App:
 
     collectors: list[ICollector] = [
         RSSCollector(cfg.noticias),
-        ScraperCollector(cfg.eventos),
+        Even3Collector(cfg.eventos_even3),
+        ScraperCollector(cfg.eventos_scraper),
     ]
 
     classifier: IClassifier = FunnelClassifier(

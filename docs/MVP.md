@@ -10,10 +10,12 @@ Uma POC funcional que prova o pipeline ponta a ponta com dados reais:
 > deduplicação → persistência (SQLite) → roteamento por sinks (notícia só
 > armazena; evento iria para rascunho no WordPress).
 
-Validado: `uv run python main.py run` coletou **151 notícias reais** de portais
-de agro, persistiu todas e, numa segunda execução, reconheceu as 151 como
-duplicadas (idempotência). Nada foi publicado no WordPress — notícia é
-`store_only` por configuração.
+Validado: `uv run python main.py run` coletou **151 notícias reais** (RSS) e
+**eventos reais de agro em SP** (Even3 — ex.: curso de fertilizantes na
+ESALQ-USP, JOIA 2026 na Unesp/Botucatu), persistiu, deduplicou e, numa segunda
+execução, reconheceu os itens como duplicados (idempotência). Notícias vão para
+`store_only`; eventos são roteados para `wordpress_draft` (rascunho) — a rota
+por tipo foi confirmada no run.
 
 ## Escopo entregue (v1)
 
@@ -27,8 +29,9 @@ duplicadas (idempotência). Nada foi publicado no WordPress — notícia é
 | **Sinks por tipo de conteúdo** | ✅ funcional | `evento→wordpress_draft`, `noticia→store_only` |
 | **Sink WordPress (rascunho)** | ✅ implementado | no-op sem credencial; cria `draft` via REST |
 | **CLI** | ✅ `run`, `sources` | interface do v1 |
+| **Trilha C — eventos Even3** | ✅ funcional | via JSON estruturado; eventos reais de agro/SP |
 | **Trilha B — feiras (seed)** | 🟡 seed cadastrado | refresh de data é v2 |
-| **Trilha C — scraping eventos** | 🟡 stub | esqueleto http; parsing por-fonte é v2 |
+| **Trilha C — scraper genérico** | 🟡 stub | esqueleto http para outras fontes é v2 |
 
 ## Decisões do marco
 

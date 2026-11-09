@@ -11,3 +11,4 @@ oxossi): título, Status, Contexto, Decisão, Consequências.
 | [0004](0004-apis-de-eventos.md) | APIs de Sympla/Eventbrite/Even3 não servem p/ descoberta | Aceito |
 | [0005](0005-escalonamento-de-scraping.md) | Escalonamento HTTP → Playwright no scraping | Aceito |
 | [0006](0006-sinks-por-tipo.md) | Sinks por tipo de conteúdo | Aceito |
+| [0007](0007-even3-via-json.md) | Even3: coletar via JSON estruturado, não HTML | Aceito |

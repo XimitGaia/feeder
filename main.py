@@ -36,8 +36,11 @@ def cmd_sources() -> int:
     print("\nFeiras recorrentes (seed):")
     for f in cfg.feiras_recorrentes:
         print(f"  - {f.nome} ({f.uf})")
+    print("\nFontes de eventos (Even3):")
+    for f in cfg.eventos_even3:
+        print(f"  - {f.id} categorias={f.categorias} -> grupos {f.grupos}")
     print("\nFontes de eventos (scraper):")
-    for f in cfg.eventos:
+    for f in cfg.eventos_scraper:
         print(f"  - {f.id} [{f.metodo}]")
     print("\nSinks por tipo de conteúdo:")
     for tipo, destinos in cfg.sinks.items():

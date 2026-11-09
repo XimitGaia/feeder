@@ -51,12 +51,22 @@ class FonteScraper(BaseModel):
     sinks: list[str] | None = None
 
 
+class FonteEven3(BaseModel):
+    id: str
+    tipo: str = "even3"
+    # ids de categoria do Even3 (1 = "Agricultura, pesca e veterinária").
+    categorias: list[int] = []
+    grupos: list[str] = []
+    sinks: list[str] | None = None
+
+
 class Config(BaseModel):
     grupos: list[Grupo] = []
     regiao: Regiao = Regiao()
     noticias: list[FonteRSS] = []
     feiras_recorrentes: list[FeiraRecorrente] = []
-    eventos: list[FonteScraper] = []
+    eventos_scraper: list[FonteScraper] = []
+    eventos_even3: list[FonteEven3] = []
     # sinks por tipo de conteúdo: {"evento": [...], "noticia": [...]}
     sinks: dict[str, list[str]] = {}
 
@@ -72,11 +82,13 @@ def load_config() -> Config:
     path = Path(env("CONFIG_PATH", default="config.yaml"))
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     fontes = raw.pop("fontes", {}) or {}
+    eventos = fontes.get("eventos", []) or []
     return Config(
         grupos=raw.get("grupos", []),
         regiao=raw.get("regiao", {}),
         sinks=raw.get("sinks", {}),
         noticias=fontes.get("noticias", []),
         feiras_recorrentes=fontes.get("feiras_recorrentes", []),
-        eventos=fontes.get("eventos", []),
+        eventos_scraper=[e for e in eventos if e.get("tipo", "scraper") == "scraper"],
+        eventos_even3=[e for e in eventos if e.get("tipo") == "even3"],
     )

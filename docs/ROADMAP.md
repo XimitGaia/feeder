@@ -12,8 +12,10 @@ por caminho relativo. Convenções herdadas de `oxossi` e `witch-doctor`.
 
 - [ ] **Trilha B — refresh de data das feiras**: job que lê a data da próxima
   edição no site oficial de cada feira e atualiza sozinho.
-- [ ] **Trilha C — parsing real do scraping** por fonte (começar pelo Even3,
-  que é o mais aderente ao nicho). Seletores por-fonte em `scraper.py`.
+- [x] **Trilha C — Even3** via JSON estruturado (ver [adr/0007](adr/0007-even3-via-json.md)). ✅
+- [ ] **Trilha C — cobertura ampla do Even3**: mapear o endpoint paginado do
+  `EventosSvc.js` (home-list traz só ~12 em destaque por categoria).
+- [ ] **Trilha C — outras fontes de evento** (Sympla/Sebrae/portais) via scraper.
 - [ ] **Geolocalização de eventos** (lat/long + cidade/UF) para "eventos
   próximos" de verdade.
 

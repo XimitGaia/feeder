@@ -86,12 +86,12 @@ fontes:
       uf: SP
       grupos: [jardinagem, agronomia]
 
-  # ---- Trilha C: eventos diversos via scraping de listagem (stub no v1) ----
+  # ---- Trilha C: eventos. Even3 via JSON estruturado (funcional). ----
+  # categoria 1 = "Agricultura, pesca e veterinária". Ver docs/adr/0004 e 0007.
   eventos:
-    - id: even3_agronomia
-      tipo: scraper
-      metodo: http
-      url: "https://www.even3.com.br/eventos/?busca=agronomia"
+    - id: even3_agro
+      tipo: even3
+      categorias: [1]
       grupos: [agronomia]
 
 # ---------------------------------------------------------------------------
