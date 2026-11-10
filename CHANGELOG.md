@@ -30,6 +30,10 @@
 - **Painel Streamlit** (`ui/app.py`, grupo `ui`): ver dados com filtros,
   disparar run e editar config (região/grupos/RSS) gravando no config.yaml.
   Reusa o pipeline da CLI; verificado via `AppTest`. Ver `docs/adr/0010`.
+- **Chaves pela UI** → grava no `.env` (`src/core/env_file`).
+- **Sync de eventos para o WordPress pela UI** (`WordPressClient`): puxa
+  categorias/tags do WP, cria rascunho com foto + resumo (Haiku sob demanda via
+  `FunnelClassifier.enrich`) + link oficial. Testado com respx. Ver `docs/adr/0011`.
 
 ## [0.1.0] — 2026-11-09
 

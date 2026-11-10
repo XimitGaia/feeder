@@ -45,6 +45,13 @@ class FunnelClassifier(IClassifier):
         self._base_url = base_url.rstrip("/")
         self._model = model
 
+    def enrich(self, item: Item) -> Item:
+        """Gera resumo/tags de UM item sob demanda (usado pelo botão Sync da UI).
+        Sem chave, é no-op. Ver docs/adr/0011."""
+        if self._api_key:
+            self._enrich_with_llm(item)
+        return item
+
     def classify(self, items: list[Item]) -> list[Item]:
         out: list[Item] = []
         for item in items:

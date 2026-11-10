@@ -90,8 +90,14 @@ uv run --group ui streamlit run ui/app.py
 ```
 
 Abre no navegador (`http://localhost:8501`). Aba **Dados** (tabela + filtros +
-"Rodar agora") e aba **Configuração** (região, grupos, fontes RSS → grava no
-`config.yaml`). Ver [adr/0010](adr/0010-ui-streamlit.md).
+"Rodar agora" + **sync de eventos para o WordPress**) e aba **Configuração**
+(chaves de acesso, categorias/tags do WP, região, grupos, fontes RSS). Ver
+[adr/0010](adr/0010-ui-streamlit.md) e [adr/0011](adr/0011-sync-wordpress-ui.md).
+
+Pela UI você pode, sem editar arquivos:
+- **Informar as chaves** (OpenRouter/WordPress) → grava no `.env`;
+- **Puxar categorias/tags do WordPress** e escolher quais aplicar;
+- **Sincronizar eventos** como rascunho (foto + resumo do Haiku + link oficial).
 
 ## 5. Consultar os dados
 
