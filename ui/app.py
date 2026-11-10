@@ -10,7 +10,16 @@ Rodar:  uv run --group ui streamlit run ui/app.py
 
 from __future__ import annotations
 
+import os
+import sys
 from pathlib import Path
+
+# `streamlit run ui/app.py` coloca a pasta ui/ no sys.path e pode herdar um cwd
+# diferente da raiz do projeto. Fixamos a raiz no path E como cwd, para que
+# `import src`, o config.yaml e o data/feeder.db resolvam de qualquer diretório.
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+os.chdir(ROOT)
 
 import streamlit as st
 import yaml
@@ -20,7 +29,8 @@ from src import initializer
 from src.core.config import load_config
 from src.flows.feeder_run import flow
 
-CONFIG_PATH = Path(env("CONFIG_PATH", default="config.yaml"))
+_cfg = env("CONFIG_PATH", default="config.yaml")
+CONFIG_PATH = Path(_cfg) if Path(_cfg).is_absolute() else ROOT / _cfg
 BR_UFS = [
     "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG",
     "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",
