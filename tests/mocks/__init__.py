@@ -29,6 +29,7 @@ class StubCollector(ICollector):
 class InMemoryStorage(IStorage):
     def __init__(self):
         self._keys: set[str] = set()
+        self._items: list[Item] = []
 
     def exists(self, dedup_key: str) -> bool:
         return dedup_key in self._keys
@@ -37,7 +38,12 @@ class InMemoryStorage(IStorage):
         if item.dedup_key in self._keys:
             return False
         self._keys.add(item.dedup_key)
+        self._items.append(item)
         return True
+
+    def list_recent(self, tipo: str | None = None, limit: int = 20) -> list[Item]:
+        items = [i for i in self._items if tipo is None or i.tipo.value == tipo]
+        return items[-limit:][::-1]
 
 
 class StubSink(ISink):

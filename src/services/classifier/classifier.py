@@ -24,8 +24,10 @@ _SYSTEM = (
     "Você classifica conteúdos (notícias e eventos) sobre agro, plantas e "
     "jardinagem. Responda SEMPRE em JSON: "
     '{"grupos": [str], "tags": [str], "resumo": str}. '
-    "grupos deve ser um subconjunto dos grupos fornecidos; resumo tem no máximo "
-    "duas frases, em português, úteis para uma pauta de blog."
+    "grupos deve ser um subconjunto EXATO dos grupos fornecidos. "
+    "resumo é uma descrição breve (1 a 2 frases, em português), clara e factual: "
+    "para evento, descreve do que se trata e para quem é; para notícia, serve de "
+    "pauta de blog. NÃO invente datas, locais ou fatos que não estejam no texto."
 )
 
 

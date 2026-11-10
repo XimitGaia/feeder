@@ -1,8 +1,10 @@
 """CLI do feeder (v1).
 
 Comandos:
-  python main.py run       — executa o pipeline uma vez (coleta -> ... -> sinks)
-  python main.py sources   — lista as fontes/grupos/sinks configurados
+  python main.py run                — executa o pipeline uma vez (coleta -> ... -> sinks)
+  python main.py sources            — lista as fontes/grupos/sinks configurados
+  python main.py list [tipo] [N]    — lista os N itens mais recentes do banco
+                                      (tipo: evento | noticia; padrão: todos, 20)
 """
 
 from __future__ import annotations
@@ -48,13 +50,35 @@ def cmd_sources() -> int:
     return 0
 
 
+def cmd_list(tipo: str | None, limit: int) -> int:
+    storage = Injector.get_injector()().storage
+    items = storage.list_recent(tipo=tipo, limit=limit)
+    print(f"=== {len(items)} itens ({tipo or 'todos'}) ===")
+    for i in items:
+        quando = (i.data_inicio or i.publicado_em)
+        quando = quando.date().isoformat() if quando else "—"
+        local = f" | {i.cidade}/{i.uf}" if i.tipo.value == "evento" else ""
+        print(f"[{i.tipo.value:7}] {quando}  {i.titulo[:60]}")
+        print(f"          fonte={i.fonte}{local}  {i.url}")
+    return 0
+
+
 def main() -> int:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "run"
     if cmd == "run":
         return cmd_run()
     if cmd == "sources":
         return cmd_sources()
-    print(f"comando desconhecido: {cmd} (use: run | sources)")
+    if cmd == "list":
+        tipo = None
+        limit = 20
+        for arg in sys.argv[2:]:
+            if arg in ("evento", "noticia"):
+                tipo = arg
+            elif arg.isdigit():
+                limit = int(arg)
+        return cmd_list(tipo, limit)
+    print(f"comando desconhecido: {cmd} (use: run | sources | list)")
     return 2
 
 

@@ -12,6 +12,12 @@
   paginado completo é protegido por reCAPTCHA v3 (fica p/ v2 com Playwright).
 - **Trilha B — `FeirasCollector`** (seed + refresh). Agrishow 2027 semeado
   (26–30/abr, Ribeirão Preto/SP). Só emite feira com data futura. Ver `docs/adr/0008`.
+- **CLI `list`**: consulta os itens do banco (`list [evento|noticia] [N]`) +
+  `IStorage.list_recent`.
+- **Qualidade de evento**: o sink WordPress monta uma ficha do evento (data,
+  local, link) e usa o `resumo` do Haiku como descrição breve.
+- **Documentação**: `docs/CONFIGURACAO.md` (setup, onde colocar cada chave de
+  acesso, como rodar/agendar/consultar); README com tabela de fontes de evento.
 
 ## [0.1.0] — 2026-11-09
 

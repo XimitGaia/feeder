@@ -35,14 +35,32 @@ coleta → classifica (funil keyword→LLM) → deduplica → persiste → sinks
 
 ```bash
 uv sync
-cp .env.example .env     # preencha OpenRouter/WordPress se quiser as etapas 2 e 4
-uv run python main.py sources   # lista grupos/fontes/sinks
-uv run python main.py run       # executa o pipeline uma vez
+cp .env.example .env     # preencha OpenRouter/WordPress se quiser enriquecer/publicar
+uv run python main.py sources     # lista grupos/fontes/sinks
+uv run python main.py run         # executa o pipeline uma vez
+uv run python main.py list evento # consulta os itens do banco (evento|noticia, N)
 ```
+
+📖 **Setup completo, onde colocar cada chave de acesso (OpenRouter, WordPress) e
+como agendar: [docs/CONFIGURACAO.md](docs/CONFIGURACAO.md).**
+
+Os dados ficam em **SQLite** (`data/feeder.db`). Para consultar, use o comando
+`list` acima, a extensão SQLite do VS Code, ou `sqlite3 data/feeder.db`.
 
 Sem `OPENROUTER_API_KEY` o feeder roda só com o funil de keyword (sem LLM).
 Sem credencial de WordPress, o sink `wordpress_draft` vira no-op. **O v1 roda
 sem nenhuma credencial** — só não enriquece nem publica.
+
+## Fontes de eventos (mais de uma)
+
+| Fonte | Como | Estado |
+|---|---|---|
+| **Even3** | JSON estruturado por categoria (agro) — ver [adr/0007](docs/adr/0007-even3-via-json.md) | ✅ ~23 eventos |
+| **Grandes feiras** | seed + data da próxima edição (Agrishow 2027) — [adr/0008](docs/adr/0008-feiras-seed-refresh.md) | ✅ |
+| Scraper genérico | esqueleto p/ outras fontes (Sympla/Embrapa) | 🟡 stub |
+
+Com o **OpenRouter** ligado, cada evento também recebe uma **descrição breve**
+(`resumo`) gerada pelo Haiku, usada no corpo do rascunho do WordPress.
 
 ## Configuração
 

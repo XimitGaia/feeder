@@ -40,6 +40,18 @@ class SQLiteStorage(IStorage):
             cur = conn.execute("SELECT 1 FROM items WHERE dedup_key = ?", (dedup_key,))
             return cur.fetchone() is not None
 
+    def list_recent(self, tipo: str | None = None, limit: int = 20) -> list[Item]:
+        sql = "SELECT payload FROM items"
+        params: list = []
+        if tipo:
+            sql += " WHERE tipo = ?"
+            params.append(tipo)
+        sql += " ORDER BY coletado_em DESC LIMIT ?"
+        params.append(limit)
+        with self._conn() as conn:
+            rows = conn.execute(sql, params).fetchall()
+        return [Item.model_validate_json(payload) for (payload,) in rows]
+
     def save(self, item: Item) -> bool:
         try:
             with self._conn() as conn:

@@ -45,6 +45,10 @@ class IStorage(ABC):
     @abstractmethod
     def exists(self, dedup_key: str) -> bool: ...
 
+    @abstractmethod
+    def list_recent(self, tipo: str | None = None, limit: int = 20) -> list[Item]:
+        """Itens mais recentes (opcionalmente filtrados por tipo) para consulta."""
+
 
 class ISink(ABC):
     """Destino de saída de um item (WordPress rascunho, store-only, ...)."""
