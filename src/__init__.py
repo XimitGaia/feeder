@@ -16,6 +16,7 @@ from decouple import config as env
 from src.core.config import Config, load_config
 from src.core.interfaces import IClassifier, ICollector, IDedup, ISink, IStorage
 from src.services.classifier.classifier import FunnelClassifier
+from src.services.collectors.doity import DoityCollector
 from src.services.collectors.even3 import Even3Collector
 from src.services.collectors.feiras import FeirasCollector
 from src.services.collectors.rss import RSSCollector
@@ -53,6 +54,7 @@ def initializer() -> App:
     collectors: list[ICollector] = [
         RSSCollector(cfg.noticias),
         Even3Collector(cfg.eventos_even3),
+        DoityCollector(cfg.eventos_doity),
         FeirasCollector(cfg.feiras_recorrentes),
         ScraperCollector(cfg.eventos_scraper),
     ]

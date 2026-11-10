@@ -18,6 +18,9 @@
   local, link) e usa o `resumo` do Haiku como descrição breve.
 - **Documentação**: `docs/CONFIGURACAO.md` (setup, onde colocar cada chave de
   acesso, como rodar/agendar/consultar); README com tabela de fontes de evento.
+- **2ª plataforma de eventos — Doity** (`DoityCollector`): busca por termo +
+  leitura do `schema.org/Event` JSON-LD de cada página (descrição completa,
+  endereço, imagem, datas). Config `tipo: doity`. Ver `docs/adr/0009`.
 
 ## [0.1.0] — 2026-11-09
 

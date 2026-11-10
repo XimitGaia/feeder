@@ -105,6 +105,13 @@ fontes:
       tipo: even3
       categorias: [1]
       grupos: [agronomia]
+    # Doity: 2ª plataforma. Busca por texto; lê o JSON-LD rico de cada evento.
+    # Ver docs/adr/0009.
+    - id: doity_agro
+      tipo: doity
+      termos: [agronomia, agricultura, hortaliça, jardinagem]
+      max_eventos: 20
+      grupos: [agronomia]
 
 # ---------------------------------------------------------------------------
 # SINKS (destinos) POR TIPO DE CONTEÚDO

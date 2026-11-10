@@ -41,6 +41,9 @@ def cmd_sources() -> int:
     print("\nFontes de eventos (Even3):")
     for f in cfg.eventos_even3:
         print(f"  - {f.id} categorias={f.categorias} -> grupos {f.grupos}")
+    print("\nFontes de eventos (Doity):")
+    for f in cfg.eventos_doity:
+        print(f"  - {f.id} termos={f.termos} -> grupos {f.grupos}")
     print("\nFontes de eventos (scraper):")
     for f in cfg.eventos_scraper:
         print(f"  - {f.id} [{f.metodo}]")

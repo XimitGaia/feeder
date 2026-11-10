@@ -13,3 +13,4 @@ oxossi): título, Status, Contexto, Decisão, Consequências.
 | [0006](0006-sinks-por-tipo.md) | Sinks por tipo de conteúdo | Aceito |
 | [0007](0007-even3-via-json.md) | Even3: coletar via JSON estruturado, não HTML | Aceito |
 | [0008](0008-feiras-seed-refresh.md) | Grandes feiras: seed manual + refresh de data | Aceito |
+| [0009](0009-doity-via-jsonld.md) | Doity como 2ª plataforma de eventos (JSON-LD) | Aceito |

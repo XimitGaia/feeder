@@ -67,6 +67,16 @@ class FonteEven3(BaseModel):
     sinks: list[str] | None = None
 
 
+class FonteDoity(BaseModel):
+    id: str
+    tipo: str = "doity"
+    # termos de busca (o Doity filtra por texto, não por área). Ver docs/adr/0009.
+    termos: list[str] = []
+    max_eventos: int = 20
+    grupos: list[str] = []
+    sinks: list[str] | None = None
+
+
 class Config(BaseModel):
     grupos: list[Grupo] = []
     regiao: Regiao = Regiao()
@@ -74,6 +84,7 @@ class Config(BaseModel):
     feiras_recorrentes: list[FeiraRecorrente] = []
     eventos_scraper: list[FonteScraper] = []
     eventos_even3: list[FonteEven3] = []
+    eventos_doity: list[FonteDoity] = []
     # sinks por tipo de conteúdo: {"evento": [...], "noticia": [...]}
     sinks: dict[str, list[str]] = {}
 
@@ -98,4 +109,5 @@ def load_config() -> Config:
         feiras_recorrentes=fontes.get("feiras_recorrentes", []),
         eventos_scraper=[e for e in eventos if e.get("tipo", "scraper") == "scraper"],
         eventos_even3=[e for e in eventos if e.get("tipo") == "even3"],
+        eventos_doity=[e for e in eventos if e.get("tipo") == "doity"],
     )

@@ -56,8 +56,9 @@ sem nenhuma credencial** — só não enriquece nem publica.
 | Fonte | Como | Estado |
 |---|---|---|
 | **Even3** | JSON estruturado por categoria (agro) — ver [adr/0007](docs/adr/0007-even3-via-json.md) | ✅ ~23 eventos |
+| **Doity** | JSON-LD rico de cada evento (descrição completa, endereço) — [adr/0009](docs/adr/0009-doity-via-jsonld.md) | ✅ poucos, ricos |
 | **Grandes feiras** | seed + data da próxima edição (Agrishow 2027) — [adr/0008](docs/adr/0008-feiras-seed-refresh.md) | ✅ |
-| Scraper genérico | esqueleto p/ outras fontes (Sympla/Embrapa) | 🟡 stub |
+| Scraper genérico | esqueleto p/ outras fontes (Embrapa/Sympla) | 🟡 stub |
 
 Com o **OpenRouter** ligado, cada evento também recebe uma **descrição breve**
 (`resumo`) gerada pelo Haiku, usada no corpo do rascunho do WordPress.
