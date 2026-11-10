@@ -2,7 +2,13 @@
 
 ## [Unreleased]
 
+### Fixed
+- **Classificação por keyword agora casa palavra inteira** (`\b`), não substring:
+  antes "muda" casava em "mudanças", poluindo jardinagem com notícias de agro.
+
 ### Added
+- **Fonte de jardinagem — Jardineiro.net** (RSS, ~60 itens no tema) + query do
+  Google News refinada. Jardinagem passou de ~escassa para >100 notícias.
 - Trilha C — **Even3 funcional** via JSON estruturado (Azure Blob), categoria
   "Agricultura, pesca e veterinária". Coleta eventos reais de agro com cidade/UF,
   datas, local e imagem; filtra passados e por região. Ver `docs/adr/0007`.

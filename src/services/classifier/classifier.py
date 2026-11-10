@@ -13,6 +13,7 @@ só-keyword) — o v1 roda sem credencial, só sem o enriquecimento fino.
 from __future__ import annotations
 
 import json
+import re
 
 import httpx
 
@@ -59,9 +60,19 @@ class FunnelClassifier(IClassifier):
     # ---- etapa 1: keyword (barato) ----
     def _keyword_match(self, item: Item) -> list[str]:
         haystack = f"{item.titulo} {item.descricao}".lower()
-        matched = [g.nome for g in self._grupos if any(k.lower() in haystack for k in g.keywords)]
+        matched = [
+            g.nome
+            for g in self._grupos
+            if any(self._has_word(k.lower(), haystack) for k in g.keywords)
+        ]
         # grupos já sugeridos pela fonte contam como palpite válido
         return sorted(set(matched) | set(item.grupos)) if matched or item.grupos else []
+
+    @staticmethod
+    def _has_word(keyword: str, haystack: str) -> bool:
+        # palavra inteira: evita "muda" casar em "mudanças", "horta" em "Horta"
+        # (cidade) via substring. \b usa fronteira unicode (acentos contam).
+        return re.search(rf"\b{re.escape(keyword)}\b", haystack) is not None
 
     # ---- etapa 2: LLM (Haiku via OpenRouter), só no que passou ----
     def _enrich_with_llm(self, item: Item) -> None:

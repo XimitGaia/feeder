@@ -40,6 +40,25 @@ def test_dedup_mantem_registro_mais_rico():
     assert out[0].descricao == "texto"
 
 
+def test_keyword_match_palavra_inteira_nao_casa_substring():
+    from src.core.config import Grupo
+    from src.services.classifier.classifier import FunnelClassifier
+
+    clf = FunnelClassifier(grupos=[Grupo(nome="jardinagem", keywords=["muda", "horta"])])
+    # "mudanças" NÃO deve casar "muda"; sem fonte-grupo, item cai fora.
+    noticia = Item(
+        tipo=ContentType.NOTICIA,
+        titulo="As mudanças climáticas e a soja",
+        descricao="economia do agro",
+        url="x",
+        fonte="globo",
+    )
+    assert clf._keyword_match(noticia) == []
+    # "muda" como palavra inteira casa.
+    ok = Item(tipo=ContentType.NOTICIA, titulo="Como plantar uma muda", url="y", fonte="z")
+    assert "jardinagem" in clf._keyword_match(ok)
+
+
 def test_dedup_key_normaliza_titulo():
     a = Item(tipo=ContentType.NOTICIA, titulo="Safra  Recorde!", url="a", fonte="x")
     b = Item(tipo=ContentType.NOTICIA, titulo="safra recorde", url="b", fonte="y")

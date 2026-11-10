@@ -65,10 +65,17 @@ fontes:
       tipo: rss
       url: "https://www.canalrural.com.br/feed/"
       grupos: [agronomia]
+    - id: jardineiro_net
+      tipo: rss
+      # Portal dedicado de jardinagem/paisagismo — RSS rico e no tema.
+      url: "https://www.jardineiro.net/feed"
+      grupos: [jardinagem]
     - id: google_news_jardinagem
       tipo: rss
       # Google News RSS por query — pesca o que os portais não cobrem.
-      url: "https://news.google.com/rss/search?q=jardinagem+OR+paisagismo+when:7d&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+      # Query restrita (paisagismo/jardinagem, sem "jardim" solto que casa
+      # com nomes de cidade tipo "Belo Jardim").
+      url: "https://news.google.com/rss/search?q=jardinagem+OR+paisagismo+OR+%22plantas+ornamentais%22+when:7d&hl=pt-BR&gl=BR&ceid=BR:pt-419"
       grupos: [jardinagem]
 
   # ---- Trilha B: grandes feiras (seed + refresh de data). Ver docs/adr/0008 ----
