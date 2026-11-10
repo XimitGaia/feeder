@@ -29,8 +29,8 @@ por tipo foi confirmada no run.
 | **Sinks por tipo de conteúdo** | ✅ funcional | `evento→wordpress_draft`, `noticia→store_only` |
 | **Sink WordPress (rascunho)** | ✅ implementado | no-op sem credencial; cria `draft` via REST |
 | **CLI** | ✅ `run`, `sources` | interface do v1 |
-| **Trilha C — eventos Even3** | ✅ funcional | via JSON estruturado; eventos reais de agro/SP |
-| **Trilha B — feiras (seed)** | 🟡 seed cadastrado | refresh de data é v2 |
+| **Trilha C — eventos Even3** | ✅ funcional | JSON estruturado; ~23 eventos agro (dedup) |
+| **Trilha B — feiras** | ✅ funcional | Agrishow 2027 semeado; refresh de data é v2 |
 | **Trilha C — scraper genérico** | 🟡 stub | esqueleto http para outras fontes é v2 |
 
 ## Decisões do marco

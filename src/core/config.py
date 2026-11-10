@@ -37,7 +37,14 @@ class FeiraRecorrente(BaseModel):
     nome: str
     site_oficial: str
     local: str | None = None
+    cidade: str | None = None
     uf: str | None = None
+    # Data da próxima edição (ISO: "2027-04-26"). Semeado à mão no v1; o refresh
+    # automático a partir do site oficial é v2. Sem data futura, a feira não é
+    # emitida como evento. Ver docs/adr/0008.
+    data_inicio: str | None = None
+    data_fim: str | None = None
+    resumo: str = ""
     grupos: list[str] = []
     sinks: list[str] | None = None
 

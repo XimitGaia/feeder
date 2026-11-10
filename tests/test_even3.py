@@ -6,42 +6,35 @@ from src.core.config import FonteEven3
 from src.core.models import ContentType
 from src.services.collectors.even3 import Even3Collector
 
-_BLOCOS = [
+_EVENTOS = [
     {
-        "idCategoria": 1,  # agro
-        "eventos": [
-            {
-                "titulo": "Curso de Fertilizantes",
-                "url": "https://even3.com.br/curso-123",
-                "resumoEvento": "Controle de qualidade.",
-                "data": "2026-11-12T00:00:00",
-                "dataFim": "2026-11-13T00:00:00",
-                "cidade": "Piracicaba",
-                "siglaEstado": "SP",
-                "localRealizacao": "ESALQ-USP",
-                "urlImagemBanner": "https://img/x.jpg",
-                "passou": False,
-            },
-            {"titulo": "Evento passado", "url": "u", "passou": True},  # deve sair
-            {"titulo": "", "url": "u2", "passou": False},  # sem título: sai
-        ],
+        "id": 1,
+        "titulo": "Curso de Fertilizantes",
+        "url": "https://even3.com.br/curso-123",
+        "resumoEvento": "Controle de qualidade.",
+        "data": "2026-11-12T00:00:00",
+        "dataFim": "2026-11-13T00:00:00",
+        "cidade": "Piracicaba",
+        "siglaEstado": "SP",
+        "localRealizacao": "ESALQ-USP",
+        "urlImagemBanner": "https://img/x.jpg",
+        "passou": False,
     },
-    {
-        "idCategoria": 99,  # outra categoria: ignorada pelo filtro
-        "eventos": [{"titulo": "Fora", "url": "u3", "passou": False}],
-    },
+    {"id": 1, "titulo": "Curso de Fertilizantes (dup)", "url": "dup", "passou": False},  # id repetido: dedup
+    {"id": 2, "titulo": "Evento passado", "url": "u", "passou": True},  # deve sair
+    {"id": 3, "titulo": "", "url": "u2", "passou": False},  # sem título: sai
 ]
 
 
 def _collector() -> Even3Collector:
     col = Even3Collector([FonteEven3(id="even3_agro", categorias=[1], grupos=["agronomia"])])
-    col._fetch_blocos = lambda: _BLOCOS  # type: ignore[method-assign]
+    col._gather_category = lambda cat: _EVENTOS  # type: ignore[method-assign]
     return col
 
 
-def test_filtra_categoria_e_passados():
+def test_dedup_por_id_filtra_passados_e_sem_titulo():
     items = _collector().collect()
-    assert len(items) == 1  # só o curso válido da categoria 1
+    assert len(items) == 1  # dedup por id + descarta passado + descarta sem título
 
 
 def test_mapeia_campos_do_evento():

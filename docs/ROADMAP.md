@@ -10,8 +10,11 @@ por caminho relativo. Convenções herdadas de `oxossi` e `witch-doctor`.
 
 ## P0 — fechar as trilhas de evento
 
+- [x] **Trilha B — seed das feiras** (`FeirasCollector`, Agrishow 2027). ✅
 - [ ] **Trilha B — refresh de data das feiras**: job que lê a data da próxima
-  edição no site oficial de cada feira e atualiza sozinho.
+  edição no site oficial de cada feira e atualiza sozinho (começar por Hortitec).
+- [ ] **Fonte de eventos extra automática**: avaliar Sympla (SPA/XHR) e Embrapa
+  (portal de eventos) como próximas fontes.
 - [x] **Trilha C — Even3** via JSON estruturado (ver [adr/0007](adr/0007-even3-via-json.md)). ✅
 - [ ] **Trilha C — cobertura ampla do Even3**: mapear o endpoint paginado do
   `EventosSvc.js` (home-list traz só ~12 em destaque por categoria).

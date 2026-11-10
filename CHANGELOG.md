@@ -7,6 +7,11 @@
   "Agricultura, pesca e veterinária". Coleta eventos reais de agro com cidade/UF,
   datas, local e imagem; filtra passados e por região. Ver `docs/adr/0007`.
 - `Even3Collector` + testes sem rede; config `tipo: even3` com `categorias`.
+- **Cobertura ampliada do Even3**: combina `lista_de_eventos-categoria-{id}.json`
+  + `home-lista_evento.json` com dedup por id (~12 → ~23 eventos agro). Endpoint
+  paginado completo é protegido por reCAPTCHA v3 (fica p/ v2 com Playwright).
+- **Trilha B — `FeirasCollector`** (seed + refresh). Agrishow 2027 semeado
+  (26–30/abr, Ribeirão Preto/SP). Só emite feira com data futura. Ver `docs/adr/0008`.
 
 ## [0.1.0] — 2026-11-09
 

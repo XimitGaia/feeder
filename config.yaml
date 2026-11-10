@@ -71,19 +71,31 @@ fontes:
       url: "https://news.google.com/rss/search?q=jardinagem+OR+paisagismo+when:7d&hl=pt-BR&gl=BR&ceid=BR:pt-419"
       grupos: [jardinagem]
 
-  # ---- Trilha B: grandes feiras (seed + refresh de data). Ver docs/adr/0004 ----
+  # ---- Trilha B: grandes feiras (seed + refresh de data). Ver docs/adr/0008 ----
+  # data_inicio/data_fim semeados à mão (confirmar no site oficial). Sem data
+  # futura, a feira não é emitida. Refresh automático da data é v2.
   feiras_recorrentes:
     - id: agrishow
-      nome: "Agrishow"
+      nome: "Agrishow 2027"
       site_oficial: "https://www.agrishow.com.br/"
-      local: "Ribeirão Preto"
+      local: "Polo Regional (Rod. Antônio Duarte Nogueira, km 321)"
+      cidade: "Ribeirão Preto"
       uf: SP
+      data_inicio: "2027-04-26"
+      data_fim: "2027-04-30"
+      resumo: "Principal feira de tecnologia agrícola da América Latina."
       grupos: [agronomia]
     - id: hortitec
       nome: "Hortitec"
       site_oficial: "https://www.hortitec.com.br/"
-      local: "Holambra"
+      local: "Recinto da Expoflora"
+      cidade: "Holambra"
       uf: SP
+      # 31ª ed. foi jun/2026 (passou). Data da 2027 ainda não anunciada —
+      # preencher quando sair (fica fora da agenda até lá).
+      data_inicio:
+      data_fim:
+      resumo: "Maior evento do setor hortifrutícola da América Latina."
       grupos: [jardinagem, agronomia]
 
   # ---- Trilha C: eventos. Even3 via JSON estruturado (funcional). ----

@@ -17,6 +17,7 @@ from src.core.config import Config, load_config
 from src.core.interfaces import IClassifier, ICollector, IDedup, ISink, IStorage
 from src.services.classifier.classifier import FunnelClassifier
 from src.services.collectors.even3 import Even3Collector
+from src.services.collectors.feiras import FeirasCollector
 from src.services.collectors.rss import RSSCollector
 from src.services.collectors.scraper import ScraperCollector
 from src.services.dedup.dedup import MergeDedup
@@ -52,6 +53,7 @@ def initializer() -> App:
     collectors: list[ICollector] = [
         RSSCollector(cfg.noticias),
         Even3Collector(cfg.eventos_even3),
+        FeirasCollector(cfg.feiras_recorrentes),
         ScraperCollector(cfg.eventos_scraper),
     ]
 

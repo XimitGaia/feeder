@@ -33,9 +33,15 @@ região (SP) é aplicado depois, no flow, via `siglaEstado` — eventos online
 - ✅ Dado **estruturado e limpo** — nada de raspar template HTML frágil.
 - ✅ Já validado: coletou eventos reais de agro em SP (ex.: curso de
   fertilizantes na ESALQ-USP; JOIA 2026 na Unesp/Botucatu).
-- ⚠️ A home-list traz um **conjunto em destaque** (~12 por categoria), não o
-  catálogo inteiro. Para cobertura ampla, mapear o endpoint paginado do
-  `EventosSvc.js` é trabalho de v2.
+- ⚠️ Cobertura: combinamos dois blobs ungated por categoria —
+  `lista_de_eventos-categoria-{id}.json` (`listaEventosPorCategoriaPaginados`) +
+  o bloco da categoria em `home-lista_evento.json` — e deduplicamos por `id`.
+  Isso elevou a categoria agro de ~12 para ~23 eventos. Os blobs
+  `home-eventosporestado-brasil-<uf>.json` retornam 404 (não publicados).
+- ⚠️ O **catálogo completo** só está atrás de `/auxiliar/retornarlistaevento/`,
+  que é **protegido por reCAPTCHA v3 + token anti-forgery** (POST retorna
+  `Object:[]` sem token válido). Puxá-lo exige Playwright para obter o token —
+  trabalho de v2 (escalonamento do [ADR-0005](0005-escalonamento-de-scraping.md)).
 - ⚠️ É um JSON **não documentado/interno** do Even3 — pode mudar sem aviso. O
   collector degrada para lista vazia em erro, sem derrubar o pipeline. Os blobs
   `home-eventosporestado-brasil-<uf>.json` exigem um `?v=<guid>` dinâmico (lido
