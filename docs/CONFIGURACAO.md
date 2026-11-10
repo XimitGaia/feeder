@@ -80,6 +80,19 @@ uv run python main.py list evento   # consulta os eventos no banco
 uv run python main.py list noticia 10
 ```
 
+## 4.1 Interface gráfica (painel Streamlit)
+
+Alternativa visual à CLI — ver dados, disparar um run e editar a config sem
+mexer em arquivo:
+
+```bash
+uv run --group ui streamlit run ui/app.py
+```
+
+Abre no navegador (`http://localhost:8501`). Aba **Dados** (tabela + filtros +
+"Rodar agora") e aba **Configuração** (região, grupos, fontes RSS → grava no
+`config.yaml`). Ver [adr/0010](adr/0010-ui-streamlit.md).
+
 ## 5. Consultar os dados
 
 Os dados ficam em **SQLite** (`data/feeder.db`). Formas de ver:

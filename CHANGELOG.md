@@ -21,6 +21,9 @@
 - **2ª plataforma de eventos — Doity** (`DoityCollector`): busca por termo +
   leitura do `schema.org/Event` JSON-LD de cada página (descrição completa,
   endereço, imagem, datas). Config `tipo: doity`. Ver `docs/adr/0009`.
+- **Painel Streamlit** (`ui/app.py`, grupo `ui`): ver dados com filtros,
+  disparar run e editar config (região/grupos/RSS) gravando no config.yaml.
+  Reusa o pipeline da CLI; verificado via `AppTest`. Ver `docs/adr/0010`.
 
 ## [0.1.0] — 2026-11-09
 

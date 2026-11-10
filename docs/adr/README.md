@@ -14,3 +14,4 @@ oxossi): título, Status, Contexto, Decisão, Consequências.
 | [0007](0007-even3-via-json.md) | Even3: coletar via JSON estruturado, não HTML | Aceito |
 | [0008](0008-feiras-seed-refresh.md) | Grandes feiras: seed manual + refresh de data | Aceito |
 | [0009](0009-doity-via-jsonld.md) | Doity como 2ª plataforma de eventos (JSON-LD) | Aceito |
+| [0010](0010-ui-streamlit.md) | Interface gráfica leve com Streamlit | Aceito |

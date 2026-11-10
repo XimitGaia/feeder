@@ -25,6 +25,10 @@ dev = [
     "pre-commit>=3.5.0",
     "respx>=0.21.1",
 ]
+# Interface gráfica (opcional): uv run --group ui streamlit run ui/app.py
+ui = [
+    "streamlit>=1.40.0",
+]
 
 [tool.uv]
 package = false
@@ -32,7 +36,7 @@ package = false
 [tool.ruff.lint]
 select = ["E", "F", "B", "UP", "I", "ASYNC", "BLE", "A", "C4", "INP", "PIE", "Q", "RSE", "ARG", "TD", "FIX", "PL"]
 ignore = ["F401", "F403", "E501", "PLR0913"]
-exclude = ["tests/*"]
+exclude = ["tests/*", "ui/*"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

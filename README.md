@@ -44,6 +44,10 @@ uv run python main.py list evento # consulta os itens do banco (evento|noticia, 
 📖 **Setup completo, onde colocar cada chave de acesso (OpenRouter, WordPress) e
 como agendar: [docs/CONFIGURACAO.md](docs/CONFIGURACAO.md).**
 
+**Interface gráfica (opcional):** painel Streamlit para ver dados, disparar run
+e editar config — `uv run --group ui streamlit run ui/app.py` (ver
+[adr/0010](docs/adr/0010-ui-streamlit.md)).
+
 Os dados ficam em **SQLite** (`data/feeder.db`). Para consultar, use o comando
 `list` acima, a extensão SQLite do VS Code, ou `sqlite3 data/feeder.db`.
 
